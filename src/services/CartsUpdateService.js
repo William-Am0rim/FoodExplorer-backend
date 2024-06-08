@@ -16,13 +16,10 @@ class CartsUpdateService {
         throw new AppError("Carrinho não encontrado.", 404);
       }
 
-      const cartUpdate = {
-        updated_at: knex.fn.now(),
-      };
-
+ 
       const existingItems = await this.cartsRepository.findCartItensById(id);
 
-      await this.cartsRepository.update(existingItems,cart_items, cartUpdate, id);
+      await this.cartsRepository.update(existingItems,cart_items, id);
 
     
     } catch (err) {

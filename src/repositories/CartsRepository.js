@@ -38,7 +38,8 @@ class CartsRepository {
     }
   }
 
-  async update(existingItems, cart_items, cartUpdate,) {
+  async update(existingItems, cart_items, id) {
+    try {
       const updatedItems = cart_items.map(({ dish_id, name, quantity }) => {
         if (existingItems.some((item) => item.dish_id === dish_id)) {
           return knex("cart_items")
@@ -54,9 +55,16 @@ class CartsRepository {
         }
       });
 
+      const cartUpdate = {
+        updated_at: knex.fn.now(),
+      };
+
+
       await Promise.all(updatedItems);
       await knex("carts").where({ id }).update(cartUpdate);
-    
+    } catch (err) {
+      throw new AppError(err);
+    }
   }
 }
 

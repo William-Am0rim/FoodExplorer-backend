@@ -9,7 +9,7 @@ class CartsCreateService {
     try {
       const { cart_items } = requestCarts;
       const itemsInsert = cart_items.map(
-        async ({ dish_id, name, quantity }) => {
+        async ({ cart_id, dish_id, name, quantity }) => {
           return {
             cart_id,
             dish_id,
