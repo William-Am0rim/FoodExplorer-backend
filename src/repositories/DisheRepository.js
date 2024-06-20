@@ -85,8 +85,10 @@ class DisheRepository {
 
   async deleteDish(requestDishe) {
     try {
-      const { dish_id } = requestDishe
-      await knex("dishes").where({ id: dish_id }).delete();
+      const { id } = requestDishe;
+      const delDish = await knex("dishes").where({id: id}).delete();
+
+      return delDish
     } catch (err) {
       throw new AppError(err);
     }
